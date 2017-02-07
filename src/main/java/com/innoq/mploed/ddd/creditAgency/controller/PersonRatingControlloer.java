@@ -1,6 +1,8 @@
 package com.innoq.mploed.ddd.creditAgency.controller;
 
+import com.innoq.mploed.ddd.creditAgency.RatingService;
 import com.innoq.mploed.ddd.creditAgency.domain.Rating;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,6 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PersonRatingControlloer {
+    private RatingService ratingService;
+
+    @Autowired
+    public PersonRatingControlloer(RatingService ratingService) {
+        this.ratingService = ratingService;
+    }
+
     @RequestMapping(method = RequestMethod.GET, path = "/personRating")
     public Rating ratePerson(
             @RequestParam(value = "firstName", defaultValue = "") String firstName,
@@ -15,33 +24,9 @@ public class PersonRatingControlloer {
             @RequestParam(value = "street", defaultValue = "") String street,
             @RequestParam(value = "postCode", defaultValue = "") String postCode
     ) {
-        int points = 0;
-
-        Rating rating = new Rating();
-
-        if(postCode.startsWith("8")) {
-            points += 100;
-        } else if(postCode.startsWith("90")) {
-            points += 120;
-        }
-
-        if(street.contains("Kreuz")) {
-            points += 20;
-        }
-
-        rating.setPoints(points);
-        if(points == 20) {
-            rating.setColor("RED");
-        } else if(points == 100) {
-            rating.setColor("YELLOW");
-        } else if(points > 100){
-            rating.setColor("GREEN");
-        } else {
-            rating.setColor("BLACK");
-        }
-
-
-        return rating;
+        return ratingService.getRating(street, postCode);
 
     }
+
+
 }
