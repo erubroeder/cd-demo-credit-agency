@@ -15,6 +15,6 @@ public class RatingServiceTest {
     public void testNuernbergScore() {
         RatingService ratingService = new RatingService();
         Rating rating = ratingService.getRating("Whatever", "90429");
-        assertEquals(110, rating.getPoints());
+        assertEquals(115, rating.getPoints());
     }
 }
