@@ -21,8 +21,8 @@ public class PersonRatingControlloer {
 
         if(postCode.startsWith("8")) {
             points += 100;
-        } else if(postCode.startsWith("9")) {
-            points += 100;
+        } else if(postCode.startsWith("90")) {
+            points += 120;
         }
 
         if(street.contains("Kreuz")) {
