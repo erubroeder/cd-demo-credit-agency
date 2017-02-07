@@ -1,7 +1,6 @@
 server:
   port: 9092
 management:
-	info:
-		git:
-			mode: full
-			
+  info:
+    git:
+      mode: full			
